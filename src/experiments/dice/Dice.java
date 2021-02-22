@@ -1,10 +1,25 @@
 package experiments.dice;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Dice {
 	
-	public void roll() {
+	public void play() {
+		Scanner sc = new Scanner(System.in);
+		
+		while(true) {
+			roll();
+			String answer = sc.nextLine();
+			if(answer.equals("n")) {
+				System.out.println("Thanks for playing!");
+				break;
+			}
+		}
+		
+	}
+	
+	private void roll() {
 		Random rand = new Random();
 		int diceUp = 0;
 		int total = 0;
@@ -15,6 +30,8 @@ public class Dice {
 			total += diceUp;
 		}
 		System.out.println(total);
+		
+		System.out.println("Continue? y/n");
 	}
 
 }
