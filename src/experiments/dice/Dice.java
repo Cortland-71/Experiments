@@ -3,10 +3,13 @@ package experiments.dice;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Dice {
+import experiments.Playable;
+
+public class Dice implements Playable {
 	private Scanner sc = new Scanner(System.in);
+	
+	@Override
 	public void play() {
-		
 		while(true) {
 			roll();
 			String answer = getPlayerInput();
@@ -27,7 +30,7 @@ public class Dice {
 			System.out.println("Dice " + (i+1) + ": " + diceUp);
 			total += diceUp;
 		}
-		System.out.println(total);
+		System.out.println("Total: " + total);
 	}
 	
 	private String getPlayerInput() {
