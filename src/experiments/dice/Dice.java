@@ -4,19 +4,17 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Dice {
-	
+	private Scanner sc = new Scanner(System.in);
 	public void play() {
-		Scanner sc = new Scanner(System.in);
 		
 		while(true) {
 			roll();
-			String answer = sc.nextLine();
+			String answer = getPlayerInput();
 			if(answer.equals("n")) {
 				System.out.println("Thanks for playing!");
 				break;
 			}
 		}
-		
 	}
 	
 	private void roll() {
@@ -30,8 +28,11 @@ public class Dice {
 			total += diceUp;
 		}
 		System.out.println(total);
-		
-		System.out.println("Continue? y/n");
 	}
-
+	
+	private String getPlayerInput() {
+		System.out.println("Continue? y/n");
+		String answer = sc.nextLine();
+		return answer;
+	}
 }
