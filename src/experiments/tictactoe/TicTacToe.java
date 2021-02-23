@@ -14,19 +14,26 @@ public class TicTacToe implements Playable {
 
 	@Override
 	public void play() {
-		getEmptyBoard();
-		showBoard();
-		getUserRowAndColChoice();
+		boolean running = true;
 		
+		while(running) {
+			getEmptyBoard();
+			showBoard();
+			int[] chosenIndexes = getUserRowAndColChoice();
+			addPlayerMove(chosenIndexes);
+		}
 	}
 	
 	private void showBoard() {
-		for(List<String> row : moveLists) {
-			for(String item : row) {
-				System.out.print("["+item+"]");
+		System.out.println("\n  1  2  3");
+		for(int i = 0; i < 3; i++) {
+			System.out.print(i+1);
+			for(int j = 0; j < moveLists.get(i).size(); j++) {
+				System.out.print("["+moveLists.get(i).get(j)+"]");
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 	
 	private void getEmptyBoard() {
@@ -36,12 +43,29 @@ public class TicTacToe implements Playable {
 		}
 	}
 	
-	private void getUserRowAndColChoice() {
-		System.out.print("Enter row: ");
-		String rowIndex = sc.nextLine();
-		System.out.print("Enter col: ");
-		String colIndex = sc.nextLine();
+	private void addPlayerMove(int[] chosenIndexes) {
+		moveLists.get(chosenIndexes[0]).set(chosenIndexes[1], "x");
 	}
 	
-
+	private int[] getUserRowAndColChoice() {
+		int[] playerMoveArr = new int[2];
+		boolean notValidInput = true;
+		while(notValidInput) {
+			System.out.println("You are x");
+			System.out.print("Select row: ");
+			String rowIndex = sc.nextLine();
+			System.out.print("Select col: ");
+			String colIndex = sc.nextLine();
+			try {
+				playerMoveArr[0] = Integer.parseInt(rowIndex)-1;
+				playerMoveArr[1] = Integer.parseInt(colIndex)-1;
+				
+			} catch(Exception e) {
+				System.out.println("\nMust enter only numbers 1 2 or 3. Try again...");
+				continue;
+			}
+			notValidInput = false;
+		}
+		return playerMoveArr;
+	}
 }
