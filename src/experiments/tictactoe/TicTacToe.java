@@ -49,6 +49,21 @@ public class TicTacToe implements Playable {
 		
 	}
 	
+	private void addOpponentMove() {
+		List<Integer> freeRowList = new ArrayList<>();
+		int freeRowIndex = 0;
+		int freeColIndex = 0;
+		
+		for(int i = 0; i < moveLists.size(); i++) {
+			if(moveLists.get(i).contains("_")) {
+				freeRowList.add(i);
+			}
+			for(int j = 0; j < moveLists.get(i).size(); j++) {
+				
+			}
+		}
+	}
+	
 	private int[] getUserRowAndColChoice() {
 		int[] playerMoveArr = new int[2];
 		boolean notValidInput = true;
