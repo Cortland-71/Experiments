@@ -45,6 +45,8 @@ public class TicTacToe implements Playable {
 	
 	private void addPlayerMove(int[] chosenIndexes) {
 		moveLists.get(chosenIndexes[0]).set(chosenIndexes[1], "x");
+		
+		
 	}
 	
 	private int[] getUserRowAndColChoice() {
@@ -61,7 +63,13 @@ public class TicTacToe implements Playable {
 				playerMoveArr[1] = Integer.parseInt(colIndex)-1;
 				
 			} catch(Exception e) {
-				System.out.println("\nMust enter only numbers 1 2 or 3. Try again...");
+				System.out.println("\nMust enter only numbers 1 2 or 3, try again...");
+				continue;
+			}
+			
+			if(!moveLists.get(playerMoveArr[0]).get(playerMoveArr[1]).equals("_")) {
+				System.out.println("\nCan't move there, try again...");
+				showBoard();
 				continue;
 			}
 			notValidInput = false;
