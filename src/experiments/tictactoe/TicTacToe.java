@@ -45,23 +45,27 @@ public class TicTacToe implements Playable {
 	
 	private void addPlayerMove(int[] chosenIndexes) {
 		moveLists.get(chosenIndexes[0]).set(chosenIndexes[1], "x");
-		
+		addOpponentMove();
 		
 	}
 	
 	private void addOpponentMove() {
 		List<Integer> freeRowList = new ArrayList<>();
-		int freeRowIndex = 0;
-		int freeColIndex = 0;
+		List<Integer> freeColList = new ArrayList<>();
 		
 		for(int i = 0; i < moveLists.size(); i++) {
 			if(moveLists.get(i).contains("_")) {
 				freeRowList.add(i);
 			}
 			for(int j = 0; j < moveLists.get(i).size(); j++) {
-				
+				if(moveLists.get(i).get(j).equals("_")) {
+					freeColList.add(j);
+				}
 			}
 		}
+		
+		System.out.println("free row list: " + freeRowList);
+		System.out.println("free col list: " + freeColList);
 	}
 	
 	private int[] getUserRowAndColChoice() {
