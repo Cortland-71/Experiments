@@ -2,6 +2,7 @@ package experiments.tictactoe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,9 +16,8 @@ public class TicTacToe implements Playable {
 	@Override
 	public void play() {
 		boolean running = true;
-		
+		getEmptyBoard();
 		while(running) {
-			getEmptyBoard();
 			showBoard();
 			int[] chosenIndexes = getUserRowAndColChoice();
 			addPlayerMove(chosenIndexes);
@@ -50,22 +50,22 @@ public class TicTacToe implements Playable {
 	}
 	
 	private void addOpponentMove() {
-		List<Integer> freeRowList = new ArrayList<>();
-		List<Integer> freeColList = new ArrayList<>();
+		List<Integer> freeRowIndexes = new ArrayList<>();
+		List<Integer> freeSpaceIndexes = new ArrayList<>();
 		
+		int choosenRowIndex = findFreeSpots(freeRowIndexes);
+		int choosenSpaceIndex = findFreeSpots(freeSpaceIndexes);
+		
+		moveLists.get(choosenRowIndex).set(choosenSpaceIndex, "o");
+	}
+	
+	private int findFreeSpots(List<Integer> searchList) {
 		for(int i = 0; i < moveLists.size(); i++) {
-			if(moveLists.get(i).contains("_")) {
-				freeRowList.add(i);
-			}
-			for(int j = 0; j < moveLists.get(i).size(); j++) {
-				if(moveLists.get(i).get(j).equals("_")) {
-					freeColList.add(j);
-				}
-			}
+			if(moveLists.get(i).contains("_")) searchList.add(i);
 		}
-		
-		System.out.println("free row list: " + freeRowList);
-		System.out.println("free col list: " + freeColList);
+		Collections.shuffle(searchList);
+		int choosenIndex = searchList.get(0);
+		return choosenIndex;
 	}
 	
 	private int[] getUserRowAndColChoice() {
