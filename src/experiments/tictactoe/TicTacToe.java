@@ -21,6 +21,8 @@ public class TicTacToe implements Playable {
 			showBoard();
 			int[] chosenIndexes = getUserRowAndColChoice();
 			addPlayerMove(chosenIndexes);
+			addOpponentMove();
+			getResult();
 		}
 	}
 	
@@ -45,7 +47,6 @@ public class TicTacToe implements Playable {
 	
 	private void addPlayerMove(int[] chosenIndexes) {
 		moveLists.get(chosenIndexes[0]).set(chosenIndexes[1], "x");
-		addOpponentMove();
 		
 	}
 	
@@ -94,5 +95,23 @@ public class TicTacToe implements Playable {
 			notValidInput = false;
 		}
 		return playerMoveArr;
+	}
+	
+	private void getResult() {
+		System.out.println(moveLists);
+		checkEachRowForAWin();
+	}
+	
+	private boolean checkEachRowForAWin() {
+		for(List<String> row : moveLists) {
+			if(String.join("", row).equals("xxx")) {
+				System.out.println("YOU WON!");
+				return true;
+			} else if(String.join("", row).equals("ooo")) {
+				System.out.println("YOU LOST.");
+				return true;
+			}
+		}
+		return false;
 	}
 }
